@@ -25,10 +25,10 @@ import DashBoard from "./Pages/DashBoard/DashBoard";
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
 
 //Admins
-import UserDetails from "./Pages/UserManagement/UserDetails";
 import UserProfile from "./Components/Users/UserProfile/UserProfile";
 import EditUserProfile from "./Components/Users/UserProfile/EditUserProfile";
-import UserManagement from "./Pages/UserManagement/UserManagement";
+import UserTable from "./Pages/UserManagement/UsersTab";
+import UserDetails from "./Pages/UserManagement/UsersDetails";
 
 function App() {
   //Token For Route protect
@@ -101,26 +101,27 @@ function App() {
 
                 // Common For All
                 <Route path="/" element={<NavBar />}>
-
                   {/* Pages */}
                   {authState && authState.role === "admin" ? (
                     <>
-                    <Route path="/" element={<DashBoard />} />
-                    <Route path="/user-management" element={<UserManagement />} />
-                    
-                  </>
-                  ) : (
-                    <>
-                    {null}
+                      <Route path="/" element={<DashBoard />} />
+                      <Route path="/user-management" element={<UserTable />} />
+                      <Route
+                        path="/getuserdetailsbyid/:id"
+                        element={<UserDetails />}
+                      />
                     </>
+                  ) : (
+                    <>{null}</>
                   )}
 
-                    {/* Personal Routes Only */}
-                  <Route path="/userprofile/:id" element={<UserProfile />} />
-                  <Route path="/edituserprofile/:id" element={<EditUserProfile />} />
                   {/* Personal Routes Only */}
-
-                  <Route path="/get-admin/:id" element={<UserDetails />} />
+                  <Route path="/userprofile/:id" element={<UserProfile />} />
+                  <Route
+                    path="/edituserprofile/:id"
+                    element={<EditUserProfile />}
+                  />
+                  {/* Personal Routes Only */}
                 </Route>
               )}
               {/* Error Page */}
